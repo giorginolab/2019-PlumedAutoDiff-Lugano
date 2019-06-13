@@ -37,11 +37,11 @@ void grad_curvature(Matrix<double,Dynamic,1> x, double &fx, Matrix<double,Dynami
 	a_ << x(0) , x(1) , x(2);
 	o_ << x(3) , x(4) , x(5);
 	b_ << x(6) , x(7) , x(8);
-
-	Matrix<T, 3, 1> xx, yy, x_y;
-	xx = a_-o_;
-	yy = b_-o_;
-	x_y = a_-b_;
+	
+	// Matrix<T, 3, 1> xx, yy, x_y;    would be a bit faster
+	auto xx = a_-o_;
+	auto yy = b_-o_;
+	auto x_y = a_-b_;
 
 	auto cos2_a = pow(xx.dot(yy),2.0) / xx.dot(xx) / yy.dot(yy);
 	auto sin2_a = 1.0 - cos2_a;
