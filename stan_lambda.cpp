@@ -20,28 +20,19 @@ using std::vector;
 
 
 
+/* The argument is a const Matrix<T, Dynamic, 1>& theta 
+   we need to extract the type T to do math on it. */
 
-/* This struct functor thing baffles me, but the point is to implement operator() assuming
-   an arbitrary number of parameters in the vector x . The trick is that instead of scalars
-   you should assume to have type T. Eigen's methods are available. */
 auto curvature_lambda = [] (auto x) {
-
-    // std::remove_reference<decltype(x)> a_, o_, b_;
-    decltype(x) a_, o_, b_;
-    a_.resize(3,1);
-    o_.resize(3,1);
-    b_.resize(3,1);
+    typedef typename decltype(x)::Scalar T;
 
     // Reshape for convenience
+    Matrix<T, 3, 1> a_, o_, b_;
     a_ << x(0) , x(1) , x(2);
     o_ << x(3) , x(4) , x(5);
     b_ << x(6) , x(7) , x(8);
 
-    decltype(x) xx, yy, x_y;
-    xx.resize(3,1);
-    yy.resize(3,1);
-    x_y.resize(3,1);
-
+    Matrix<T, 3, 1> xx, yy, x_y;
     xx = a_-o_;
     yy = b_-o_;
     x_y = a_-b_;
@@ -79,8 +70,9 @@ void test_curvature() {
 
     double radius;
     Matrix<double,Dynamic,1> grad_fx;
-
-    grad_curvature(x,radius,grad_fx);
+    // grad_curvature(x,radius,grad_fx);
+    stan::math::gradient(curvature_lambda,x,fx,grad_fx);
+    
     std::cout << "Radius: " << radius << std::endl;
 
     std::cout << grad_fx << std::endl;
