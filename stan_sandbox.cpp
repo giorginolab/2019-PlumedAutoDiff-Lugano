@@ -16,10 +16,10 @@ using std::vector;
 
 
 
-/* This struct functor thing baffles me, but the point is to implement
-   operator() assuming an arbitrary number of parameters in the vector
-   x . The trick is that instead of scalars you should assume to have
-   type T. Eigen's methods are available. */
+/* Implementing functors may seem baffling, but the point is to
+   implement operator() assuming an arbitrary number of parameters in
+   the vector x . The trick is that instead of scalars you should
+   assume to have type T. Eigen's methods are available. */
 struct fun1 {
     template <typename T>
     T operator()(const Eigen::Matrix<T, Eigen::Dynamic, 1>& x)
@@ -37,7 +37,8 @@ struct fun1 {
 };
 
 
-
+/* This is more correct: do not differentiate against p (if you don't
+ * want to) */
 struct fun2 {
     fun2(int p): p(p) {}
     template <typename T>

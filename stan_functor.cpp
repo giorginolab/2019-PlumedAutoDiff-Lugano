@@ -5,8 +5,8 @@
 
 #include <cmath>
 #include <stan/math/rev/mat.hpp>
-#include <time.h>
-const int MAX_CALLS=1e7;
+#include "run_and_time.hpp"
+
 
 
 using Eigen::Matrix;
@@ -22,7 +22,8 @@ using std::vector;
 /* This struct functor thing baffles me, but the point is to implement operator() assuming
    an arbitrary number of parameters in the vector x . The trick is that instead of scalars
    you should assume to have type T. Eigen's methods are available. */
-struct curvature_fun {
+class curvature_fun {
+public:
     template <typename T>
     T operator()(const Eigen::Matrix<T, Eigen::Dynamic, 1>& x)
     const {
@@ -58,60 +59,30 @@ void grad_curvature(Matrix<double,Dynamic,1> x, double &fx, Matrix<double,Dynami
 }
 
 
-void test_curvature() {
+
+void test_curvature(bool print=true) {
     double dt=2*M_PI/30;
     double r=2.5;
 
     Matrix<double,9,1> x;
-    x << r , 0 , 0 ,
-    r*cos(dt), r*sin(dt), 0,
-    r*cos(2*dt), r*sin(2*dt), 0;
+    x << r          , 0          , 0 ,
+         r*cos(dt)  , r*sin(dt)  , 0 ,
+	 r*cos(2*dt), r*sin(2*dt), 0 ;
 
     double radius;
     Matrix<double,Dynamic,1> grad_fx;
-
     grad_curvature(x,radius,grad_fx);
-    std::cout << "Radius: " << radius << std::endl;
 
-    std::cout << grad_fx << std::endl;
-
-}
-
-
-
-void timeit() {
-    double dt=2*M_PI/30;
-    double r=2.5;
-
-    Matrix<double,9,1> x;
-    x << r , 0 , 0 ,
-    r*cos(dt), r*sin(dt), 0,
-    r*cos(2*dt), r*sin(2*dt), 0;
-
-    double radius;
-    Matrix<double,Dynamic,1> grad_fx;
-
-    double crap=0;
-
-    clock_t t=clock();
-
-    for (int i=0; i<MAX_CALLS; i++) {
-        grad_curvature(x,radius,grad_fx);
-        stan::math::set_zero_all_adjoints();
+    if(print) {
+	std::cout << "Radius: " << radius << std::endl;
+	std::cout << grad_fx << std::endl;
     }
-
-    t=clock()-t;
-
-    printf ("It took me %f seconds (%f μs/call) \n %f.\n",
-            ((float)t)/CLOCKS_PER_SEC,
-            1.0e6*((float)t)/CLOCKS_PER_SEC/MAX_CALLS,crap);
-
 }
 
 
 
 
 int main(int argc, char ** argv) {
-    test_curvature();
-    timeit();
+    run_and_time(test_curvature);
 }
+
