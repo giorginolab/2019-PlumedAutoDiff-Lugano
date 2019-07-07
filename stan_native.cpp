@@ -12,25 +12,6 @@ using stan::math::vector_v;
 
 
 
-/* Basic example using the native "var" types and no templating. Type
-   "vector_v" is Eigen::Matrix<var, Eigen::Dynamic, 1>. Returns the
-   radius, but also the gradient w.r.t. its arguments through their
-   references, accessible with the adj() property. */
-var curvature(vector_v &a, vector_v &o, vector_v &b)
-{
-    vector_v x = a-o;
-    vector_v y = b-o;
-
-    var cos2_a = pow(dot_product(x,y),2.0) / dot_self(x) / dot_self(y);
-    var sin2_a = 1.0 - cos2_a;
-
-    vector_v x_y = subtract(a,b);
-    var radius2 =  dot_self(x_y) / sin2_a / 4.0;
-    var radius = sqrt(radius2);
-
-    return(radius);
-}
-
 
 
 
@@ -44,7 +25,15 @@ void test_curvature(bool print=true)
     o << r*cos(dt),   r*sin(dt),    0 ;
     b << r*cos(2*dt), r*sin(2*dt),  0;
 
-    var radius = curvature(a,o,b);
+    vector_v x = a-o;
+    vector_v y = b-o;
+
+    var cos2_a = pow(dot_product(x,y),2.0) / dot_self(x) / dot_self(y);
+    var sin2_a = 1.0 - cos2_a;
+
+    vector_v x_y = subtract(a,b);
+    var radius2 =  dot_self(x_y) / sin2_a / 4.0;
+    var radius = sqrt(radius2);
 
     radius.grad();
 
@@ -60,6 +49,7 @@ void test_curvature(bool print=true)
     }
 
     stan::math::set_zero_all_adjoints();
+    stan::math::recover_memory();
 
 }
 

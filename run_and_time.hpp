@@ -5,7 +5,6 @@ void timeit(void (*f)(bool) , unsigned int howmany) {
 
     for (int i=0; i<howmany; i++) {
 	f(false);
-        stan::math::set_zero_all_adjoints();
     }
     
     clock_t end = clock();

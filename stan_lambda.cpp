@@ -14,8 +14,6 @@ using Eigen::Dynamic;
 using std::vector;
 
 
-
-
 //  This is the function computing the gradient. 
 void grad_curvature(Matrix<double,Dynamic,1> x, double &fx, Matrix<double,Dynamic,1> &grad_fx ) {
 
@@ -82,12 +80,20 @@ void test_curvature(bool print=true) {
 	std::cout << "Radius: " << radius << std::endl;
 	std::cout << grad_fx << std::endl;
     }
+
+    stan::math::set_zero_all_adjoints();
 }
 
 
 
 
 
-int main(int argc, char ** argv) {
-    run_and_time(test_curvature);
+// int main(int argc, char ** argv) {
+//     run_and_time(test_curvature);
+// }
+
+int main(int argc, char ** argv)
+{
+    run_and_time(test_curvature,atoi(argv[1]));
 }
+

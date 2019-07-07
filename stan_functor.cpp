@@ -77,6 +77,8 @@ void test_curvature(bool print=true) {
 	std::cout << "Radius: " << radius << std::endl;
 	std::cout << grad_fx << std::endl;
     }
+
+    stan::math::set_zero_all_adjoints();
 }
 
 
