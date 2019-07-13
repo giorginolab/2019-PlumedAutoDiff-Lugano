@@ -19,8 +19,13 @@ is sufficient for practical purposes.
 All files must be invoked with an integer argument, the number of
 repetitions for benchmarking purposes.
 
+If you find this work useful,
+please cite 
+> T. Giorgino, How to differentiate collective variables in free energy codes: Computer-algebra code generation and automatic differentiation, Computer Physics Communications 228, 258–263 (2018) https://arxiv.org/abs/1709.06780 plumID:19.011
 
-## Basic example: `stan_lambda`
+
+Basic example: `stan_lambda`
+--------------------
 
 Compute the radius of a circle passing through three points. The
 function to be differentiated is defined using a C++14 "lambda"
@@ -41,7 +46,8 @@ Notes:
 * `auto` types are also used for readability.
 
 
-## Older C++ syntax: `stan_functor`
+Older C++ syntax: `stan_functor`
+--------------------
 
 Like the above, but uses the "functor" syntax instead of lambda.
 
@@ -56,18 +62,19 @@ solution with respect to A, B and C are computed via Stan, and
 compared with the know exact values.
 
 
-## Low-level approach: `stan_native`
+Low-level approach: `stan_native`
+--------------------
 
 Shows a more low-level approach where the variables being
 differentiated are explicitly declared of `var` type;
 the Eigen library is not used.
 
 
-## Other
+Other
+--------------------
 
 * `stan_perf_minimal.cpp`: minimal benchmark
 * `stan_sandbox.cpp`: minimal harness for quick testing
 * `run_and_time.hpp`: as the name implies
-
 
 
