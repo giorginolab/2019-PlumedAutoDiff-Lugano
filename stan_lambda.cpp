@@ -15,7 +15,9 @@ using std::vector;
 
 
 //  This is the function computing the gradient. 
-void grad_curvature(Matrix<double,Dynamic,1> x, double &fx, Matrix<double,Dynamic,1> &grad_fx ) {
+void grad_curvature(Matrix<double,Dynamic,1> x,
+		    double &fx,
+		    Matrix<double,Dynamic,1> &grad_fx ) {
 
     bool inverse=false;
 
