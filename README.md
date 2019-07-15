@@ -1,84 +1,22 @@
-Stan Math automatic differentiation examples
+How to differentiate collective variables in free energy codes
 =============================
 
-We demonstrate (and time) the use of the Stan Math library for
-"realistic" CV differentiation problems. This code accompanies the talk
-at CECAM's *Open source software for enhanced-sampling simulations*
-https://www.cecam.org/workshop1749/ taking place on 25-27 July 2019 at
-Università della Svizzera italiana, Lugano.
+This code accompanies the talk at CECAM's *Open source software for
+enhanced-sampling simulations* https://www.cecam.org/workshop1749/
+taking place on 25-27 July 2019 at Università della Svizzera italiana,
+Lugano.
 
-Preliminarly, you will need to
+The subdirectories reproduce and simplify the code provided  with
+the following paper:
 
-1. download and extract the Stan Math library from https://github.com/stan-dev/math 
-2. edit the `STAN_HOME` variable in the `Makefile` accordingly
-
-
-The files are sorted in a "didactical" order. Understanding the first
-is sufficient for practical purposes.
-
-All executables must be invoked with an integer argument, the number
-of repetitions for benchmarking purposes.
-
-If you find this work useful,
-please cite 
 > T. Giorgino, How to differentiate collective variables in free energy codes: Computer-algebra code generation and automatic differentiation, Computer Physics Communications 228, 258–263 (2018) [doi](http://dx.doi.org/10.1016/j.cpc.2018.02.017) [arxiv](https://arxiv.org/abs/1709.06780) [plumID:19.011](https://www.plumed-nest.org/eggs/19/011/)
 
+In particular you will find
 
-Basic example: `stan_lambda`
---------------------
+* `stan-math-examples`, which demonstrates the use of the Stan Math library (outside PLUMED)
+* `symbolic-code-generation-examples`, which shows how to use SymPy to automatically generate code (outside PLUMED)
 
-Compute the radius of a circle passing through three points and the
-gradient of the radius with respect to the three coordinates. The
-differentiand is defined using a C++14 "lambda" taking a 9x1 input
-(the coordinates, in order `x1 y1 z1 x2 y2 z2 x3 y3 z3` as an Eigen
-`Matrix<double, 9, 1>`) and a boolean parameter (`invert`, whether to
-return the reciprocal of the result).
+To see how the two approaches can be integrated in PLUMED CVs, including help and regression tests, see the [plumed2-automatic-gradients](https://github.com/tonigi/plumed2-automatic-gradients) repository, and in particular:
 
-A call to `stan::math::gradient` with the arguments indicated in the
-source performs the required reverse-mode automatic differentiation
-and returns simultaneously the outputs `fx` (the value of the function
-at the requested point `x`) and `grad_fx` (its gradient, an Eigen
-`Matrix<double, 9, 1>`).
-
-Notes:
-
-* The input must be a 1D vector, not a matrix, for `stan::math::gradient` to work.
-* Vectors are `typedef` with convenient types of the [Eigen](http://eigen.tuxfamily.org/index.php?title=Main_Page) library.
-* Eigen enables a number of vector operations, such as `.dot()`.
-* `auto` types are also used for readability.
-
-
-Older C++ syntax: `stan_functor`
---------------------
-
-Like the above, but uses the "functor" syntax instead of lambda.
-
-
-Differentiating through iterations: `stan_iterative`
---------------------
-
-It is possible to differentiate results coming from (almost) arbitrary
-algorithms. Here, for the sake of illustration, we solve the second-order
-equation, `A x^2 + B x + C = 0`, by Newton's method. Parameters are read
-from  standard input at run time. Iterations quickly converge towards a
-solution `x`, if there is any. The derivative of the  solution `x` with
-respect to A, B and C are computed via Stan, and compared with the  exact
-values.
-
-
-Low-level approach: `stan_native`
---------------------
-
-Shows a more low-level approach where the variables being
-differentiated are explicitly declared of Stan's `var` type;
-the Eigen library is not used.
-
-
-Other
---------------------
-
-* `stan_perf_minimal.cpp`: minimal benchmark
-* `stan_sandbox.cpp`: minimal harness for quick testing
-* `run_and_time.hpp`: as the name implies
-
-
+* [src/curvature_codegen](https://github.com/tonigi/plumed2-automatic-gradients/tree/automatic-gradient-computation/src/curvature_codegen)
+* [src/curvature_autodiff](https://github.com/tonigi/plumed2-automatic-gradients/tree/automatic-gradient-computation/src/curvature_autodiff)
