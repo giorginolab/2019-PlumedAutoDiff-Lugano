@@ -13,8 +13,8 @@ the following paper:
 
 In particular you will find
 
-* `stan-math-examples`, which demonstrates the use of the Stan Math library (outside PLUMED)
-* `symbolic-code-generation-examples`, which shows how to use SymPy to automatically generate code (outside PLUMED)
+* [stan-math-examples](stan-math-examples), which demonstrates the use of the Stan Math library (outside PLUMED)
+* [symbolic-code-generation-examples](symbolic-code-generation-examples), which shows how to use SymPy to automatically generate code (outside PLUMED)
 
 To see how the two approaches can be integrated in PLUMED CVs, including help and regression tests, see the [plumed2-automatic-gradients](https://github.com/tonigi/plumed2-automatic-gradients) repository, and in particular:
 
