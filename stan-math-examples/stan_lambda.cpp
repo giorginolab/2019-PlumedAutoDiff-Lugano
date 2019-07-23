@@ -27,11 +27,10 @@ void grad_curvature(Matrix<double,Dynamic,1> x,
     // parameters (not being differentiated against) with the square
     // brackets. 
     auto curvature_lambda = [inverse] (auto x) {
-	typedef typename decltype(x)::Scalar T;
-
 	/* We may need to extract the type T (e.g. if we want to make
-	   compatible Eigen objects). Otherwise "auto" may just do
-	   it. */
+	   compatible Eigen objects). In simple cases "auto" may just
+	   cut it. */
+	typedef typename decltype(x)::Scalar T;
 
 	// Reshape for convenience
 	typedef Matrix<T, 3, 1> T3;
