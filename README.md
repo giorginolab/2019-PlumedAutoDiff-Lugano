@@ -20,11 +20,10 @@ In particular you will find
 
 To see how the two approaches can be integrated in PLUMED CVs, including help and regression tests, see the original [plumed2-automatic-gradients](https://github.com/tonigi/plumed2-automatic-gradients) repository, and in particular:
 
-* [src/curvature_codegen](https://github.com/tonigi/plumed2-automatic-gradients/tree/automatic-gradient-computation/src/curvature_codegen)
-* [src/curvature_autodiff](https://github.com/tonigi/plumed2-automatic-gradients/tree/automatic-gradient-computation/src/curvature_autodiff)
+* [src/curvature_codegen](https://github.com/tonigi/plumed2-automatic-gradients/tree/automatic-gradient-computation/src/curvature_codegen), with regtests in  [regtest/curvature_codegen](https://github.com/tonigi/plumed2-automatic-gradients/tree/automatic-gradient-computation/regtest/curvature_codegen) 
+* [src/curvature_autodiff](https://github.com/tonigi/plumed2-automatic-gradients/tree/automatic-gradient-computation/src/curvature_autodiff), with regtests in 
+[regtest/curvature_autodiff](https://github.com/tonigi/plumed2-automatic-gradients/tree/automatic-gradient-computation/regtest/curvature_autodiff)
 
-With the corresponding regtests in:
 
-* [regtest/curvature_autodiff](https://github.com/tonigi/plumed2-automatic-gradients/tree/automatic-gradient-computation/regtest/curvature_autodiff)
-* [regtest/curvature_codegen](https://github.com/tonigi/plumed2-automatic-gradients/tree/automatic-gradient-computation/regtest/curvature_codegen)
+
 
