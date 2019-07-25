@@ -1,0 +1,24 @@
+
+
+# Use VMD's Extensions -> Analysis -> PLUMED -> Structure -> Display gradients and forces...
+
+UNITS  LENGTH=A  ENERGY=kcal/mol  TIME=ps
+MOLINFO STRUCTURE=1KDX.pdb     MOLTYPE=protein
+
+# Creb-binding protein
+cbp:      GROUP   ATOMS=[chain A and name CA]
+cbp_com:  COM   ATOMS=cbp
+
+# Kinase-inducible domain
+kid:      GROUP   ATOMS=[chain B and name CA]
+kid_com:  COM   ATOMS=kid
+
+
+cv1:    DISTANCE ATOMS=cbp_com,kid_com
+cv2:    GYRATION ATOMS=[name CA] TYPE=RADIUS
+cv3:    COORDINATION GROUPA=[name CA] 		      D_0=2.0  R_0=1
+cv4:    COORDINATION GROUPA=cbp  GROUPB=kid	 D_0=4.0  R_0=1
+
+RESTRAINT ARG=cv5 SLOPE=-1 AT=0
+
+
