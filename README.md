@@ -3,8 +3,8 @@ How to differentiate collective variables in free energy codes
 
 [Toni Giorgino](https://www.giorginolab.it)
 
-This code accompanies the talk at CECAM's [Open source software for
-enhanced-sampling simulations](https://www.cecam.org/workshop1749/)
+This code accompanies [my talk](plumed2019_autodiff_r7.pdf)
+at CECAM's [Open source software for enhanced-sampling simulations](https://www.cecam.org/workshop1749/),
 taking place on 25-27 July 2019 at Università della Svizzera Italiana,
 Lugano.
 
