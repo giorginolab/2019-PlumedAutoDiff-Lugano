@@ -26,7 +26,7 @@ ifdef USE_PCH
 endif
 
 
-EXES:=stan_lambda stan_functor stan_native stan_sandbox stan_iterative stan_perf_minimal
+EXES:=stan_ode stan_lambda stan_functor stan_native stan_sandbox stan_iterative stan_perf_minimal
 
 default: $(EXES)
 
